@@ -1,6 +1,7 @@
-![icon.png](./icon.png)
-
-# GreatTube
+<div style="display: flex; align-items: center; justify-content: center;">
+    <img src="./icon.png" width=200>
+    <h1 style="margin-left: 10px;">Great Tube</h1>
+</div>
 
 A decent youtube mobile app
 
