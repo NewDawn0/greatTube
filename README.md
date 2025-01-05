@@ -1,3 +1,5 @@
+![icon.png](./icon.png)
+
 # GreatTube
 
 A decent youtube mobile app
