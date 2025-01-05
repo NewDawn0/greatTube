@@ -13,17 +13,30 @@ struct WebView: UIViewRepresentable {
     var webView: WKWebView = {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
-        config.mediaTypesRequiringUserActionForPlayback = .all
+        config.allowsPictureInPictureMediaPlayback = false
         return WKWebView(frame: .zero, configuration: config)
     }()
     
     func makeUIView(context: Context) -> WKWebView {
+        webView.navigationDelegate = context.coordinator
         return webView
     }
     
-    func updateUIView(_ uiView: WKWebView, context: Context) {
+    func updateUIView(_ view: WKWebView, context: Context) {
         let request = URLRequest(url: url)
-        uiView.load(request)
+        view.load(request)
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+}
+
+class Coordinator: NSObject, WKNavigationDelegate {
+    var parent: WebView
+    
+    init(_ parent: WebView) {
+        self.parent = parent
     }
 }
 
