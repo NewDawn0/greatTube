@@ -9,6 +9,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: const WebViewApp(),
       theme: ThemeData(useMaterial3: true),
     );
   }
