@@ -46,7 +46,6 @@ class _WebViewAppState extends State<WebViewApp> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomBar(controller: controller),
     );
   }
 
@@ -77,40 +76,6 @@ class _WebViewAppState extends State<WebViewApp> {
   }
 }
 
-class BottomBar extends StatelessWidget {
-  const BottomBar({required this.controller, super.key});
-  final WebViewController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: bgcol,
-      height: 50.0,
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            color: fgcol,
-            onPressed: () async {
-              await controller.loadRequest(Uri.parse("https://www.youtube.com/"));
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.playlist_play),
-            color: fgcol,
-            onPressed: () async {
-              await controller.loadRequest(Uri.parse("https://www.youtube.com/feed/subscriptions"));
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class NavigationControls extends StatelessWidget {
   const NavigationControls({required this.controller, super.key});
   final WebViewController controller;
@@ -119,6 +84,18 @@ class NavigationControls extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.home),
+          onPressed: () async {
+            await controller.loadRequest(Uri.parse("https://www.youtube.com/"));
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.playlist_play),
+          onPressed: () async {
+            await controller.loadRequest(Uri.parse("https://www.youtube.com/feed/subscriptions"));
+          },
+        ),
         IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () async {
