@@ -21,15 +21,15 @@ A decent youtube mobile app
 
 @NOTE: Sadly due to Apples restrictions and me not wanting to pay 100$ to pay for a one year license to put the app on the AppStore I cannot build a distrubutable app for IOS
 
-For android users download and install the apk in the releases tab
+For android users download and install the apk in the [releases](https://github.com/NewDawn0/greatTube/releases) tab
 
 ## Building & installing from source
 
 1. Check if the following dependencies are installed
 
-- **Flutter with Dart-SDK**: Core language and build
-- **GNU Make**: Used to orchestrate build commands
-- **Xcode**: (Optional) Only required to build the app for IOS
+- **[Flutter](https://docs.flutter.dev/get-started/install) with [Dart-SDK](https://dart.dev/get-dart)**: Core language and build
+- **[GNU Make](https://www.gnu.org/software/make/)**: Used to orchestrate build commands
+- **[Xcode](https://apps.apple.com/us/app/xcode/id497799835/)**: (Optional) Only required to build the app for IOS
 
 2. Clone the repo
 
