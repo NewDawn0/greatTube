@@ -4,4 +4,4 @@ build-icon:
 
 build-app: build-icon
 	@echo "=> Building App"
-	flutter install --release
+	flutter run --release
