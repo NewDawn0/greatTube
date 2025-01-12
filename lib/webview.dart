@@ -3,6 +3,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
+const Color bgcol = Color(0xff0f0e1b);
+const Color fgcol = Color(0xffffffff);
+
 class WebViewApp extends StatefulWidget {
   const WebViewApp({super.key});
 
@@ -43,6 +46,9 @@ class _WebViewAppState extends State<WebViewApp> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomBar(controller: controller),
+    );
+  }
 
   WebViewController _createController() {
     final params = !(WebViewPlatform.instance is WebKitWebViewPlatform)
@@ -70,5 +76,40 @@ class _WebViewAppState extends State<WebViewApp> {
     );
   }
 }
+
+class BottomBar extends StatelessWidget {
+  const BottomBar({required this.controller, super.key});
+  final WebViewController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: bgcol,
+      height: 50.0,
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.home),
+            color: fgcol,
+            onPressed: () async {
+              await controller.loadRequest(Uri.parse("https://www.youtube.com/"));
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.playlist_play),
+            color: fgcol,
+            onPressed: () async {
+              await controller.loadRequest(Uri.parse("https://www.youtube.com/feed/subscriptions"));
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
     );
   }
