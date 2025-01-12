@@ -11,6 +11,8 @@ class WebViewApp extends StatefulWidget {
 }
 
 class _WebViewAppState extends State<WebViewApp> {
+  var loadingPercentage = 0;
+  late final WebViewController controller;
 
   @override
   void initState() {
@@ -18,6 +20,7 @@ class _WebViewAppState extends State<WebViewApp> {
     controller = _createController()
       ..loadRequest(Uri.parse('https://youtube.com'))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(_createNavigationDelegate());
   }
 
   @override
@@ -33,10 +36,39 @@ class _WebViewAppState extends State<WebViewApp> {
       ),
       body: Stack(
         children: [
+          if (loadingPercentage < 100)
+            LinearProgressIndicator(value: loadingPercentage / 100.0),
           WebViewWidget(
             controller: controller,
           ),
         ],
       ),
+
+  WebViewController _createController() {
+    final params = !(WebViewPlatform.instance is WebKitWebViewPlatform)
+      ? const PlatformWebViewControllerCreationParams()
+      : WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+
+    final WebViewController controller =
+    WebViewController.fromPlatformCreationParams(params);
+
+    if (controller.platform is AndroidWebViewController) {
+      (controller.platform as AndroidWebViewController)
+        .setMediaPlaybackRequiresUserGesture(true);
+    }
+    return controller;
+  }
+
+  NavigationDelegate _createNavigationDelegate() {
+    return NavigationDelegate(
+      onPageStarted: (_) => setState(() { loadingPercentage = 0; }),
+      onProgress: (progress) => setState(() { loadingPercentage = progress; }),
+      onPageFinished: (_) => setState(() { loadingPercentage = 100; }),
+    );
+  }
+}
     );
   }
